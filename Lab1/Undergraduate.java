@@ -4,12 +4,12 @@ public class Undergraduate extends Student {
     @Override
     public String getStatue() {
         if(getGPA()>=3.0){
-            System.out.print("honor");
+            return "honor";
         }else if(getGPA()>=2.0){
-            System.out.print("good");
+            return "good";
         }else {
-            System.out.print("probation");
+            return "probation";
         }
-        return null;
+       
     }
 }
