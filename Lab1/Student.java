@@ -10,6 +10,9 @@ public abstract class Student {
         return ID;
     }
     public void setGPA(double GPA) {
+        if (GPA>4 || GPA<0){
+            System.out.print("No");
+        }
         this.GPA = GPA;
     }
     public void setID(int ID) {

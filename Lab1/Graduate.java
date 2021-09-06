@@ -3,7 +3,10 @@ package Lab1;
 public class Graduate extends Student {
     @Override
     public String getStatue() {
-        // TODO Auto-generated method stub
-        return null;
+        if(getGPA()>=3.0){
+            return "honor";
+        }else{
+            return "probation";
+        }
     }
 }
