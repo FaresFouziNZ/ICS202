@@ -1,28 +1,28 @@
 package Lab1;
 import java.util.Random;
+import java.text.DecimalFormat;
 
 public class Driver {
     public static void main(String[] argus){
         int x = 0;
-        Student[] studentarr = new Student[10];
+        Student[] studentArray = new Student[10];
         Random rand = new Random();
+        DecimalFormat f = new DecimalFormat("##.00");
         for(int i=0;i<10;i++){
             if(x==0){
-            studentarr[i] = new Undergraduate();
-            studentarr[i].setGPA(Math.floor(Math.random()*(4.0+1)));
-            studentarr[i].setID((int)Math.floor(Math.random()*(999999+1)));
+                studentArray[i] = new Undergraduate();
+                studentArray[i].setGPA(Double.parseDouble(f.format((4.0) * rand.nextDouble())));
+                studentArray[i].setID((int)Math.floor(Math.random()*(999999+1)));
             x=1;
             }else if(x==1){
-                studentarr[i] = new Graduate();
-                studentarr[i].setGPA(Math.floor(Math.random()*(4.0+1)));
-                studentarr[i].setID((int)Math.floor(Math.random()*(999999+1)));
+                studentArray[i] = new Graduate();
+                studentArray[i].setGPA(Double.parseDouble(f.format((4.0) * rand.nextDouble())));
+                studentArray[i].setID((int)Math.floor(Math.random()*(999999+1)));
                 x=0;
             }
-            print(studentarr[i].displayStudent());
+            System.out.println(studentArray[i].displayStudent());
             
         }
     }
-    public static void print(String S){
-        System.out.print(S);
-    }
+  
 }
