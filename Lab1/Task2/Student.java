@@ -1,5 +1,4 @@
-package Lab1;
-
+package Lab1.Task2;
 public abstract class Student {
     protected int ID;
     protected double GPA;
@@ -19,7 +18,7 @@ public abstract class Student {
         this.ID = ID;
     }
     public abstract String getStatue();
-    public String displayStudent(){
+    public final String displayStudent(){
         return getClass()+" ID>> "+ID+", GPA>>"+GPA+", Status>> "+getStatue();
     }
 
