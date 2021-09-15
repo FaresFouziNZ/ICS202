@@ -79,14 +79,22 @@ public class SLL<T> {
       }
       return num;
     }
-    public void insertBefore(T newElem, T existingElem){
-        if(!isInList(existingElem)){
+    public void insertAfter(T newElem, T existingElem){
+        if(!isInList(existingElem)){//check if it in list
             System.out.println("Element: "+existingElem+" does not exist in the linked list. Insertion failed.");
         }else{
-        SLLNode<T> tmp = this.head;
-        if(tmp.info == existingElem){//it was the head
-            
-        }
+        SLLNode<T> tmp = head;
+        boolean done = false;
+        while(!done){
+        if(tmp.info.equals(existingElem)){// founded
+            SLLNode<T> newN = new SLLNode<T>();
+            newN.info = newElem;
+            newN.next = tmp.next;
+            tmp.next = newN;
+            done = true;
+        }else{
+            tmp = tmp.next;
+        }}
         }
         
     }
