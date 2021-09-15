@@ -51,7 +51,7 @@ public class SLL<T> {
             else if (el.equals(head.info)) // if more than one node on the list;
                  head = head.next;    // and el is in the head node;
             else {                    // if more than one node in the list
-                 SLLNode<T> pred, tmp;// and el is in a nonhead node;
+                 SLLNode<T> pred, tmp;// and el is in a non-head node;
                  for (pred = head, tmp = head.next;  
                       tmp != null && !tmp.info.equals(el); 
                       pred = pred.next, tmp = tmp.next);
@@ -78,5 +78,16 @@ public class SLL<T> {
           num++;
       }
       return num;
+    }
+    public void insertBefore(T newElem, T existingElem){
+        if(!isInList(existingElem)){
+            System.out.println("Element: "+existingElem+" does not exist in the linked list. Insertion failed.");
+        }else{
+        SLLNode<T> tmp = this.head;
+        if(tmp.info == existingElem){//it was the head
+            
+        }
+        }
+        
     }
 }
