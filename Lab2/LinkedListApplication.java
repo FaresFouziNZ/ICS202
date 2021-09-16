@@ -12,6 +12,9 @@ public class LinkedListApplication {
 		myl.addToHead(5);
 		myl.addToHead(3);
 		myl.printAll();
+		myl.insertAfter(5, 2);
+		myl.printAll();
+		myl.insertBefore(1, 5);
 		myl.printAll();
 	}
 }

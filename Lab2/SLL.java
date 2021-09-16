@@ -80,9 +80,11 @@ public class SLL<T> {
       return num;
     }
     public void insertAfter(T newElem, T existingElem){
-        if(!isInList(existingElem)){//check if it in list
+        if(!isInList(existingElem)){                            //check if it in list
             System.out.println("Element: "+existingElem+" does not exist in the linked list. Insertion failed.");
-        }else{
+        }else if(tail.info.equals(existingElem)){     //if the Elem was the tail
+            addToTail(newElem);
+        }else{  
         SLLNode<T> tmp = head;
         boolean done = false;
         while(!done){
@@ -98,4 +100,32 @@ public class SLL<T> {
         }
         
     }
+    public void insertBefore(T newElem, T existingElem){
+        if(!isInList(existingElem)){                            //check if it in list
+            System.out.println("Element: "+existingElem+" does not exist in the linked list. Insertion failed.");
+        }else if(head.info.equals(existingElem)){     //if the Elem was the tail
+            addToHead(newElem);
+        }else{
+            SLLNode<T> tmp = head;
+            boolean done = false;
+            while(!done){
+            if(tmp.next.info.equals(existingElem)){// founded
+                SLLNode<T> newN = new SLLNode<T>();
+                newN.info = newElem;
+                newN.next = tmp.next;
+                tmp.next = newN;
+                done = true;
+            }else{
+                tmp = tmp.next;
+            }}
+        }
+    }
+    public void deleteBefore(T existingElem){
+        if(!isInList(existingElem)){                            //check if it in list
+            System.out.println("Element: "+existingElem+" does not exist in the linked list. delete failed.");
+        }else if(){
+            
+        }
+    }
+    public void deleteAfter(T existingElem){}
 }
