@@ -84,7 +84,7 @@ public class DLL<T> {
             boolean deleted = false;
         while(tmp.next!=null){
             u++;
-            if()
+            if(M7md3li)
         }
     }
 }
