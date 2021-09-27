@@ -5,13 +5,13 @@ public class LinkedListApplication {
 		// 	myList.addToHead("A" + i);
 		// myList.printAll();
 		// System.out.print(myList.length());
-		SLL<Integer> myl = new SLL<Integer>();
-		myl.addToHead(9);
-		myl.addToHead(2);
-		myl.addToHead(4);
-		myl.addToHead(5);
-		myl.addToHead(3);
-		myl.printAll();
-		myl.printAll();
+		SLL<String> myl = new SLL<String>();
+		myl.addToHead("Mango");
+		myl.addToTail("Avocado");
+		myl.addToTail("Lime");
+		myl.addToTail("Peach");
+		myl.addToTail("Apple");
+		myl.insertBefore("Fruits", "Apple");
+		myl.insertAfter("Watermelon", "Lime");
 	}
 }
