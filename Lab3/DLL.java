@@ -149,7 +149,18 @@ public class DLL<T> {
 
     }
     public void insertAlternate(DLL<T> newList) {
-        DLLNode<T> tmp = head;
-        DLLNode<T> tmp2 = head;
+        DLL<T> mylst = new DLL<T>();
+        DLLNode<T> tmp1 = head;
+        DLLNode<T> tmp2 = newList.head;
+        while(tmp1 != null && tmp2 != null){
+            mylst.addToTail(tmp1.info);
+            mylst.addToTail(tmp2.info);
+            tmp1 = tmp1.next;
+            tmp2= tmp2.next;
+
+        } 
+        this.setToNull(); 
+        for(DLLNode<T> tmp3 = mylst.head;  tmp3 != null; tmp3 = tmp3.next) {
+            addToTail(tmp3.info);}
     }
-}
+    }
