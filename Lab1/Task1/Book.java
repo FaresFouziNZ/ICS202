@@ -1,4 +1,4 @@
-package Lab1.Task1;
+package Task1;
 
 public class Book {
     protected  String title;

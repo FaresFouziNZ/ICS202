@@ -1,4 +1,4 @@
-package Lab1.Task1;
+package Task1;
 
 public class DriverT1 {
     public static void main(String[] argus){

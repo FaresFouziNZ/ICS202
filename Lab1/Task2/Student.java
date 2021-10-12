@@ -1,4 +1,4 @@
-package Lab1.Task2;
+package Task2;
 public abstract class Student {
     protected int ID;
     protected double GPA;

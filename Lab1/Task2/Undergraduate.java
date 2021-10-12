@@ -1,4 +1,4 @@
-package Lab1.Task2;
+package Task2;
 
 public class Undergraduate extends Student {
     @Override
