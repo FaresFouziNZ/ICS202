@@ -1,7 +1,59 @@
-//**************************  SLL.java  *********************************
-//           a generic singly linked list class 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
-public class SLL<T> {
+public class s201867080_Q1 {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        Scanner sc = new Scanner(new File(args[0]));
+        FileWriter wr = new FileWriter(new File(args[1]));
+        SLL<Integer> nums = new SLL<Integer>();
+        while (sc.hasNextInt()) {
+            int data = sc.nextInt();
+            nums.addToTail(data);
+        }
+        nums.printAll();
+        nums.deleteFromTail();
+        nums.printAll();
+        while (sc.hasNextLine()) {
+            String data = sc.next();
+            if (data.equals("ia")) {
+                int num1 = sc.nextInt();
+                int num2 = sc.nextInt();
+                if (!nums.isInList(num2))
+                    wr.write(-1 + System.lineSeparator());
+                else {
+                    nums.insertAfter(num1, num2);
+                    wr.write(nums.printStr() + System.lineSeparator());
+                }
+            } else if (data.equals("ib")) {
+                int num1 = sc.nextInt();
+                int num2 = sc.nextInt();
+                if (!nums.isInList(num2)) {
+                    wr.write(-1 + System.lineSeparator());
+                } else {
+                    nums.insertBefore(num1, num2);
+                    wr.write(nums.printStr() + System.lineSeparator());
+                }
+            } else {
+                int num1 = sc.nextInt();
+                if (!nums.isInList(num1))
+                    wr.write(-1 + System.lineSeparator());
+                else {
+                    nums.deleteBefore(num1);
+                    wr.write(nums.printStr() + System.lineSeparator());
+                }
+            }
+        }
+        sc.close();
+        wr.close();
+
+    }
+
+}
+
+class SLL<T> {
     protected SLLNode<T> head, tail;
 
     public SLL() {
@@ -107,7 +159,7 @@ public class SLL<T> {
                     newN.info = newElem;
                     newN.next = tmp.next;
                     tmp.next = newN;
-                    System.out.print("After inserting "+newElem+", the list is>> ");
+                    System.out.print("After inserting " + newElem + ", the list is>> ");
                     printAll();
                     done = true;
                 } else {
@@ -121,7 +173,7 @@ public class SLL<T> {
     public void insertBefore(T newElem, T existingElem) {
         if (!isInList(existingElem)) { // check if it in list
             System.out.println("Element: " + existingElem + " does not exist in the linked list. Insertion failed.");
-            
+
         } else if (head.info.equals(existingElem)) { // if the Elem was the tail
             addToHead(newElem);
         } else {
@@ -133,7 +185,7 @@ public class SLL<T> {
                     newN.info = newElem;
                     newN.next = tmp.next;
                     tmp.next = newN;
-                    System.out.print("After inserting "+newElem+", the list is>> ");
+                    System.out.print("After inserting " + newElem + ", the list is>> ");
                     printAll();
                     done = true;
                 } else {
@@ -157,7 +209,7 @@ public class SLL<T> {
                 while (!done) {
                     if (tmp.next.next.info.equals(existingElem)) {
                         tmp.next = tmp.next.next;
-                        System.out.print("After deleting the item before "+existingElem+", the list is>> ");
+                        System.out.print("After deleting the item before " + existingElem + ", the list is>> ");
                         printAll();
                         done = true;
                     } else {
@@ -168,24 +220,29 @@ public class SLL<T> {
         }
     }
 
-    public void deleteAfter(T existingElem) {
-        if (!isInList(existingElem)) { // check if it in list
-            System.out.println("Element: " + existingElem + " does not exist in the linked list. delete failed.");
-        } else if (this.tail.info.equals(existingElem)) {
-            System.out.println("No element after the tail");
-        } else {
-            SLLNode<T> tmp = head;
-            boolean done = false;
-            while (!done) {
-                if (tmp.info.equals(existingElem)) { // founded
-                    tmp.next = tmp.next.next;
-                    System.out.print("After deleting the item after "+existingElem+", the list is>> ");
-                        printAll();
-                    done = true;
-                } else {
-                    tmp = tmp.next;
-                }
-            }
-        }
+    public String printStr() {
+        String str = "";
+        for (SLLNode<T> tmp = head; tmp != null; tmp = tmp.next)
+            str += tmp.info + " ";
+        return str;
     }
+}
+
+class SLLNode<T> {
+    public T info;
+    public SLLNode<T> next;
+
+    public SLLNode() {
+        this(null, null);
+    }
+
+    public SLLNode(T el) {
+        this(el, null);
+    }
+
+    public SLLNode(T el, SLLNode<T> ptr) {
+        info = el;
+        next = ptr;
+    }
+
 }
