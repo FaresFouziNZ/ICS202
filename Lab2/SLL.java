@@ -121,7 +121,6 @@ public class SLL<T> {
     public void insertBefore(T newElem, T existingElem) {
         if (!isInList(existingElem)) { // check if it in list
             System.out.println("Element: " + existingElem + " does not exist in the linked list. Insertion failed.");
-            
         } else if (head.info.equals(existingElem)) { // if the Elem was the tail
             addToHead(newElem);
         } else {
@@ -187,5 +186,30 @@ public class SLL<T> {
                 }
             }
         }
+    }
+    public void deleteThird(){
+        SLLNode<T> tmp = head;
+        if(tmp.next.next==null){//if size is less than 3
+            return;
+        }
+        tmp=tmp.next;
+        tmp.next = tmp.next.next;
+    }
+    public void deletelastthird(){
+        SLLNode<T> tmp = head;
+        if(tmp==null)
+        return;
+        int q = 0;
+        while(tmp!=tail){
+            tmp=tmp.next;
+            q++;
+        }
+        tmp = head;     
+        if(q<3)
+        return;
+        for(int i=0;i<q-3;i++){
+            tmp=tmp.next;
+        }
+        tmp.next=tmp.next.next;
     }
 }
