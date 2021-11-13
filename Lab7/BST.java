@@ -1,5 +1,5 @@
 /************************
- * BST.java ************************** generic binary search tree
+ * BST.java ************************** gener`c binary search tree
  */
 
 public class BST<T extends Comparable<? super T>> {
@@ -333,12 +333,12 @@ public class BST<T extends Comparable<? super T>> {
                          tmp.right = p; // reached, make it a temporary
                          p = p.left; // parent of the current root,
                     } else { // else a temporary parent has been found;
-                         // process nodes between p.left (included) and p (excluded)
-                         // extended to the right in modified tree in reverse order;
-                         // the first loop descends this chain of nodes and reverses
-                         // right pointers; the second loop goes back, visits nodes,
-                         // and reverses right pointers again to restore the pointers
-                         // to their original setting;
+                             // process nodes between p.left (included) and p (excluded)
+                             // extended to the right in modified tree in reverse order;
+                             // the first loop descends this chain of nodes and reverses
+                             // right pointers; the second loop goes back, visits nodes,
+                             // and reverses right pointers again to restore the pointers
+                             // to their original setting;
                          for (q = p.left, r = q.right, s = r.right; r != p; q = r, r = s, s = s.right)
                               r.right = q;
                          for (s = q.right; q != p.left; q.right = r, r = q, q = s, s = s.right)
@@ -363,28 +363,81 @@ public class BST<T extends Comparable<? super T>> {
           balance(data, 0, data.length - 1);
      }
 
-     public int count() {
-          return count(root);
-          
+     public boolean isLeaf(BSTNode<T> node) {
+          if (node.left == null && node.right == null)
+               return true;
+          return false;
      }
 
-     public int count(BSTNode<T> x) {
-          if (x == null) {
-               return 0;
+     public String getPath(T t1) {
+          return getPath(root, t1);
+     }
+
+     public String getPath(BSTNode<T> tmp, T t1) {
+          try{
+          if (tmp.el.compareTo(t1) == 0) {
+               return tmp.el.toString();
+          } else if (tmp.el.compareTo(t1) == 1) {
+               return tmp.el + " " + getPath(tmp.left, t1);
+          } else {
+               return tmp.el + " " + getPath(tmp.right, t1);
           }
-          return 1 + count(x.left) + count(x.right);
+     }catch(NullPointerException e){
+          return "PATH NOT FOUND";
      }
-     public int height(){
-          return height(root);
      }
-     public int height(BSTNode<T> x){
-          if(x==null)
-          return 0;
-          return 1 + Math.max(height(x.left), height(x.right));
+
+     public int getRightLeafCount() {
+          return getRightLeafCount(root, true);
      }
-     // public boolean isLeaf(T el){
-     //      if(!isInTree(el))
-     //      return false;
-     //      BSTNode<T> tmp;
-     // }
+
+     public int getRightLeafCount(BSTNode<T> x, boolean isRight) {
+          int count = 0;
+          if (isLeaf(x)) {
+               if (isRight) {
+                    return 1;
+               }
+               return 0;
+          } else {
+               if (x.right != null) {
+                    count += getRightLeafCount(x.right, true);
+               }
+               if (x.left != null) {
+                    count += getRightLeafCount(x.left, false);
+               }
+          }
+          return count;
+
+     }
+
+     public int rangeCounter(T t1, T t2) {
+          int count = 0;
+          BSTNode<T> start=root, tmp = root;
+          boolean startFound = false, endFound = false;
+          while (!startFound) {
+               if (tmp.el.compareTo(t2) == 0) {
+                    start = tmp;
+                    startFound = true;
+                    break;
+               } else if (tmp.el.compareTo(t2) > 0) {
+                    tmp = tmp.left;
+               } else {
+                    tmp = tmp.right;
+               }
+          }
+
+          while (!endFound) {
+               //System.out.println(start.el);
+               if (start.el.compareTo(t1) == 0) {
+                    return count;
+               } else if (start.el.compareTo(t1) >0) {
+                    start = start.left;
+                    count++;
+               } else {
+                    start = start.right;
+                    count++;
+               }
+          }
+          return count;
+     }
 }
