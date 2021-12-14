@@ -212,4 +212,31 @@ public class SLL<T> {
         }
         tmp.next=tmp.next.next;
     }
+    public void insertAfter2(T p1,T p2,T p3){
+        SLLNode<T> tmp = head;
+        SLLNode<T> myNode = new SLLNode<T>(p3);
+        while(tmp.next!=null){
+        if(tmp.info.equals(p1)){
+            if(tmp.next.info.equals(p2)){
+                tmp=tmp.next;
+                myNode.next = tmp.next;
+                tmp.next = myNode;
+                return;
+            }
+        }}
+    }
+    public void swap(T index1,T index2){
+        SLLNode<T> tmp = head;
+        SLLNode<T> myNode1;
+        SLLNode<T> myNode2;
+        while(tmp.next!=null){
+            if(tmp.info.equals(index1)){
+                myNode1 = tmp;
+            }
+            if(tmp.info.equals(index2)){
+                myNode2 = tmp;
+            }
+
+        }
+    }
 }
