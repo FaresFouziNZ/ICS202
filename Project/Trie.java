@@ -1,4 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class Trie {
@@ -38,11 +43,12 @@ public class Trie {
     }
 
     void insert(String s) {
+        s = s.toUpperCase();
         TrieNode tmp = root;
         for (int i = 0; i < s.length(); i++) {
             char tmpC = s.charAt(i);
             if (tmp.child[tmpC - 'A'] == null)
-                tmp.child[tmpC - 'A'] = new TrieNode(tmpC);
+                tmp.child[tmpC - 'A'] = new TrieNode(tmpC, tmp);
             tmp = tmp.child[tmpC - 'A'];
         }
         tmp.isWord = true;
@@ -91,6 +97,7 @@ public class Trie {
 
     boolean isEmpty() {
         TrieNode tmp = root;
+
         for (int i = 0; i < 26; i++) {
             if (tmp.child[i] != null)
                 return false;
@@ -104,11 +111,12 @@ public class Trie {
     }
 
     String[] allWordsPrefix(String p) {
+        p = p.toUpperCase();
         if (!isPrefix(p)) {
             System.out.println("No word contains this prefix");
             return null;
         }
-        ArrayList<String> words;
+        ArrayList<String> words = new ArrayList<>();
         TrieNode tmp = root;
         char tmpC;
 
@@ -117,6 +125,38 @@ public class Trie {
             tmp = tmp.child[tmpC - 'A'];
         }
         TrieNode startP = tmp;
+        ArrayList<TrieNode> allw = awd(startP);
+        for (int i = 0; i < allw.size(); i++) {
+            words.add(toWord(allw.get(i)));
+        }
+        return words.toArray(new String[words.size()]);
+
+    }
+
+    String toWord(TrieNode node) {
+        String word = "";
+        Stack<Character> st = new Stack<>();
+        while (node.prev != null) {
+            st.push(node.info);
+            node = node.prev;
+        }
+        while (!st.isEmpty()) {
+            word += st.pop();
+        }
+        return word;
+    }
+
+    ArrayList<TrieNode> awd(TrieNode node) {
+        ArrayList<TrieNode> list = new ArrayList<>();
+        for (int i = 0; i < 26; i++) {
+            if (node.child[i] != null) {
+                list.addAll(awd(node.child[i]));
+            }
+        }
+        if (node.isWord) {
+            list.add(node);
+        }
+        return list;
 
     }
 
@@ -134,4 +174,33 @@ public class Trie {
 
         return size;
     }
+
+    String[] permutations(String s) throws FileNotFoundException {
+        s = s.toUpperCase();
+        File inputFile = new File("Project/dictionary.txt");
+        ArrayList<String> words = new ArrayList<>();
+        Scanner sc = new Scanner(inputFile);
+       // char[] unwantedChar = new char[26];
+        String unwanted = "";
+        String currentWord;
+        for (int i = 0; i < 26; i++) {
+            if (!s.contains(Character.toString((char) (65 + i))))
+                unwanted += (char) (65 + i);
+        }
+        while (sc.hasNextLine()) {
+            currentWord = sc.nextLine();
+            if (!currentWord.matches(".*" + unwanted + ".*")) {
+                if (currentWord.length() <= s.length())
+                    words.add(currentWord);
+            }
+        }
+        // for (int i = 0; i < 26; i++) {
+        // if(!s.contains(Character.toString((char) (65 + i))))
+        // unwantedChar[i] = (char) (65 + i);
+        // }
+        sc.close();
+        return words.toArray(new String[words.size()]);
+    }
+    
+
 }
