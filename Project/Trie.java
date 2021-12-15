@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -125,9 +123,9 @@ public class Trie {
             tmp = tmp.child[tmpC - 'A'];
         }
         TrieNode startP = tmp;
-        ArrayList<TrieNode> allw = awd(startP);
-        for (int i = 0; i < allw.size(); i++) {
-            words.add(toWord(allw.get(i)));
+        ArrayList<TrieNode> allWords = getWordsNodes(startP);
+        for (int i = 0; i < allWords.size(); i++) {
+            words.add(toWord(allWords.get(i)));
         }
         return words.toArray(new String[words.size()]);
 
@@ -146,11 +144,11 @@ public class Trie {
         return word;
     }
 
-    ArrayList<TrieNode> awd(TrieNode node) {
+    ArrayList<TrieNode> getWordsNodes(TrieNode node) {
         ArrayList<TrieNode> list = new ArrayList<>();
         for (int i = 0; i < 26; i++) {
             if (node.child[i] != null) {
-                list.addAll(awd(node.child[i]));
+                list.addAll(getWordsNodes(node.child[i]));
             }
         }
         if (node.isWord) {
@@ -180,19 +178,25 @@ public class Trie {
         File inputFile = new File("Project/dictionary.txt");
         ArrayList<String> words = new ArrayList<>();
         Scanner sc = new Scanner(inputFile);
-       // char[] unwantedChar = new char[26];
         String unwanted = "";
         String currentWord;
         for (int i = 0; i < 26; i++) {
             if (!s.contains(Character.toString((char) (65 + i))))
                 unwanted += (char) (65 + i);
         }
+        char[] unwantedChar = unwanted.toCharArray();
+        boolean goodWord = true;
         while (sc.hasNextLine()) {
             currentWord = sc.nextLine();
-            if (!currentWord.matches(".*" + unwanted + ".*")) {
-                if (currentWord.length() <= s.length())
-                    words.add(currentWord);
+            goodWord = true;
+            for (int i = 0; i < unwantedChar.length; i++) {
+                if (currentWord.contains(Character.toString(unwantedChar[i]))) {
+                    goodWord = false;
+                    break;
+                }
             }
+            if (currentWord.length() <= s.length() && goodWord)
+                words.add(currentWord);
         }
         // for (int i = 0; i < 26; i++) {
         // if(!s.contains(Character.toString((char) (65 + i))))
@@ -201,6 +205,5 @@ public class Trie {
         sc.close();
         return words.toArray(new String[words.size()]);
     }
-    
 
 }
